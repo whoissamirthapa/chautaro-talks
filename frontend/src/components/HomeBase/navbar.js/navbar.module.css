@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Style+Script&display=swap');
+:root{
+    /* -----hover button -------*/
+    --btn-shadow: 0 0.5px 4px rgba(0,0,0,0.3);
+    --btn-scale: scale(1.1);  
+}
+nav{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    font-size: 2rem;
+    width: 80%;
+    margin: auto;
+    padding-top:  4rem;
+    
+}
+nav > .logo__navbar{
+    width: 20rem;
+    text-align: center;
+    font-size: 3rem;
+
+}
+nav > .logo__navbar::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+.navbar_menu_btn{
+    font-size: 5rem;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    float: right;
+    margin-right: 3rem;
+    margin-top: 0.1rem;
+    display: none;
+}
+nav > .logo__navbar > span > span{
+    font-size: 5rem;
+    font-family: 'Style Script', cursive;
+}
+.list__navbar{
+    font-size: 2rem;
+    display: flex;
+    flex-flow: row nowrap;
+    
+}
+.list_nav_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.list__navbar a > li, 
+.list_navbar_sec a > li,
+.list__navbar li, 
+.list_navbar_sec li{
+    padding: 2rem 0.8rem 1rem 1rem;
+
+}
+.list__navbar a,
+.list_navbar_sec a{
+    margin-right: 0.2rem;
+}
+.nav_btn_signin button{
+    height: 4rem;
+    cursor: pointer;
+    margin-top: -1rem;
+    background-color: lightgreen;
+    border: none;
+    font-size: 1.6rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    transition: all 400ms ease;
+}
+.nav_btn_signin > button:hover{
+    box-shadow: var(--btn-shadow);
+    transform: var(--btn-scale);
+    border: none;
+}
+.list_navbar_sec{
+    font-size: 2rem;
+    display: none;
+    flex-flow: row wrap;
+    transition: all 500ms linear;
+}
+.list__navbar > a:hover,
+.list__navbar > a:active,
+.list_navbar_sec > li:not(:last-child) > a:hover,
+.list_navbar_sec > li:not(:last-child) > a:active{
+    border-bottom: 0.2rem solid lightgreen;
+}
+@media screen and (max-width: 1086.5px) {
+    nav{
+       display: block;
+       width: 98%;
+    }
+    nav > .logo__navbar{
+        width: 100%;
+    }
+
+    .list_nav_container{
+        width: 99%;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 708px){
+    nav{
+        z-index: 9;
+        padding-top: 2rem;
+    }
+    .list__navbar{
+        display: none;
+    }
+    .list_navbar_sec{
+        display: block;
+        
+    }
+    .list__navbar a,
+    .list_navbar_sec a{
+        margin-right: 0;
+    }
+    .list__navbar a > li, .list_navbar_sec a > li,
+    .list__navbar li, .list_navbar_sec li{
+        padding: 2rem 1rem 1rem 1rem;
+    
+    }
+    .navbar_menu_btn{
+        display: inline-block;
+    }
+    .list_nav_container{
+        justify-content: start;
+    }
+    nav > .logo__navbar{
+        text-align: start;
+        padding-left: 2rem;
+    }
+}
+@media screen and (max-width: 290px) {
+    nav > .logo__navbar{
+        font-size: 2.5rem;
+    
+    }
+    nav > .logo__navbar > span > span{
+        font-size: 4rem;
+    }
+}
+.hover__nav{
+    border-bottom: 0.2rem solid lightgreen;
+}

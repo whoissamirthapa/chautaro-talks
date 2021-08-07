@@ -1,0 +1,13 @@
+.container__unauthorized{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    text-align: center;
+    margin-top: 8rem;
+}
+.container__unauthorized > p > span{
+    display: block;
+    text-align: center;
+    font-size: 2rem;
+}

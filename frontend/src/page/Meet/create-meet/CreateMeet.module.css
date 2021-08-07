@@ -1,0 +1,78 @@
+.meet_create_parent_container{
+    width: 30rem;
+    margin: 5.5rem auto;
+    background-color: var(--box-bgcolor);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 18px rgba(0,0,0,0.4);
+}
+.header_meet_create{
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+.header_meet_create::before{
+    content: "";
+    display: block;
+    height: 2rem;
+    width: 30%;
+    margin: auto;
+    border-top: 0.5rem solid darkblue;
+    border-left: 0.5rem solid darkblue;
+    border-right: 0.5rem solid darkblue;
+}
+.header_meet_create::after{
+    content: "";
+    display: block;
+    height: 2rem;
+    width: 50%;
+    margin: auto;
+    border-bottom: 0.5rem solid darkblue;
+    border-left: 0.5rem solid darkblue;
+    border-right: 0.5rem solid darkblue;
+}
+/* .header_meet_create > span{
+    text-decoration: underline;
+    text-decoration-color: darkblue;
+    text-decoration-thickness: 0.3rem;
+} */
+.meet_form_container{
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.meet_form_container > form > input{
+    height: 3rem;
+    width: 100%;
+    font-size: 1.6rem;
+    border: none;
+    padding-left: 1rem;
+}
+.meet_form_container > form >button{
+    height: 3rem;
+    width: 100%;
+    border: none;
+    margin-top: 0.5rem;
+    background-color: var(--btn-color);
+    font-size: 1.7rem;
+    cursor: pointer;
+    transition: all 200ms linear;
+}
+.meet_form_container > form > button:hover{
+    box-shadow: 0 1.5px 12px rgba(0,0,0,0.4);
+
+}
+.join_other_group{
+    font-size: 1.2rem;
+}
+.join_other_group > a{
+    color: rgb(5, 5, 109);
+    text-decoration: underline;
+}
+.join_other_group > a:hover{
+    color: rgb(55, 55, 204);
+}
+@media screen and (max-width: 400px) {
+    .meet_create_parent_container{
+        width: 98%;
+    }
+}

@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Vollkorn', serif;
+  list-style: none;
+  outline: none;
+}
+html{
+  font-size: 10px;
+  scroll-behavior: smooth;
+}
+::selection{
+  background-color: chartreuse;;
+}
+a{
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+/*
+ -----hover button -------
+
+--btn-shadow: 0 0.5px 4px rgba(0,0,0,0.3);
+--btn-scale: scale(1.1);  
+
+
+
+*/

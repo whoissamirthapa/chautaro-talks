@@ -1,0 +1,13 @@
+.container_not_found{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    text-align: center;
+    height: 98vh;
+}
+.container_not_found > p > span{
+    display: block;
+    text-align: center;
+    font-size: 2rem;
+}
