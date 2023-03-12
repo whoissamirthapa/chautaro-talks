@@ -1,17 +1,31 @@
-const express = require('express');
-
+const express = require("express");
+const dotenv = require("dotenv");
+const talkRouter = require("./routes/talk");
+const authRouter = require("./routes/user");
+const chautaroGroupTalkRouter = require("./routes/chautaro-group-talk");
 const app = express();
 
-
+dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // setting up cross origin
-app.use(require("cors")())
+app.use(require("cors")());
 
+const connnectDatabase = require("../config/dbconnection");
+const auth = require("./middleware/auth");
 
-// router 
-app.use("/user",require("../routes/user"));
-app.use("/chautaro-group-talk", require("../routes/chautaro-group-talk"));
+// databse connection
+connnectDatabase();
+
+// connect models
+require("./model/user");
+require("./model/chautaro-group-talk");
+require("./model/chautaro-talk-message");
+
+// router
+app.use("/user", authRouter);
+app.use("/chautaro-group-talk", chautaroGroupTalkRouter);
+app.use("/talk", auth, talkRouter);
 
 module.exports = app;

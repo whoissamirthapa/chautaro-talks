@@ -7,7 +7,4 @@ const auth = require("../middleware/auth");
 
 router.post("/create", auth, GroupTalkController.createChautaroGroupTalkName);
 
-
-
 module.exports = router;
-
