@@ -21,6 +21,15 @@ function Talks() {
                 setAllUsers([...temp]);
             }
         });
+        api.get("/user/authenticated").then((res) => {
+            if (res.data?.success) {
+                console.log(res.data.data);
+                localStorage.setItem(
+                    "chautaroUser",
+                    JSON.stringify(res.data.data)
+                );
+            }
+        });
     }, []);
 
     return (

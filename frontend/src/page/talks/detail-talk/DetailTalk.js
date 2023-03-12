@@ -6,6 +6,7 @@ import classes from "./DetailTalk.module.css";
 import socket from "../../../config/socketconnection";
 import api from "../../../config.axios";
 function DetailTalk() {
+    const [me, setMe] = useState({});
     const [myMessage, setMyMessage] = useState([]);
 
     const messageRef = useRef();
@@ -24,11 +25,8 @@ function DetailTalk() {
             message,
         });
 
-        // setMyMessage((prevState) => {
-        //     return [...prevState, message];
-        // });
-
         if (res.data?.success) {
+            socket.emit("new message", { message: res.data.data, id });
             setMyMessage((prevState) => {
                 return [...prevState, res.data.data];
             });
@@ -39,14 +37,31 @@ function DetailTalk() {
     };
 
     useEffect(() => {
+        socket.on("recieved message", (data) => {
+            console.log("recieved message", data);
+            setMyMessage((prevState) => {
+                return [...prevState, data];
+            });
+        });
+    });
+
+    useEffect(() => {
         if (id) {
             api.get(`/talk/get/${id}`).then((res) => {
                 if (res.data?.success) {
                     setMyMessage([...res.data.data]);
+                    socket.emit("talk-start", "abc");
                 }
             });
         }
     }, [id]);
+
+    useEffect(() => {
+        const user = JSON.stringify(localStorage.getItem("chautaroUser"));
+        const tempMe = JSON.parse(user);
+        setMe({ ...tempMe });
+        socket.emit("setup", user);
+    }, []);
     return (
         <AuthorizedHomeBase>
             <div>

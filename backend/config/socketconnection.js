@@ -9,9 +9,20 @@ const socketIO = require("socket.io")(http, {
 });
 
 socketIO.on("connection", (socket) => {
-    console.log("User connected");
+    console.log("socket.io connected");
+    socket.on("setup", (data) => {
+        // console.log(data);
+        socket.join(data?._id);
+        socket.emit("user connected", data?._id);
+    });
     socket.on("talk-start", (data) => {
-        console.log(data);
+        // console.log(data);
+        socket.join(data);
+    });
+    socket.on("new message", (data) => {
+        console.log(data.id);
+
+        socket.broadcast.to(data.id).emit("recieved message", data.message);
     });
 });
 
