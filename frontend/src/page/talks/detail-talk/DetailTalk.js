@@ -5,40 +5,46 @@ import AuthorizedHomeBase from "../../../components/AuthorizedHomeBase/Authorize
 import classes from "./DetailTalk.module.css";
 import socket from "../../../config/socketconnection";
 import api from "../../../config.axios";
+import IndvDetailTalkHere from "./indvDetailTalk";
 function DetailTalk() {
     const [me, setMe] = useState({});
     const [myMessage, setMyMessage] = useState([]);
 
-    const messageRef = useRef();
-    const detailMessageContainerRef = useRef();
+    const messageRef = useRef(null);
+    const detailMessageContainerRef = useRef(null);
     let { id } = useParams();
     const history = useHistory();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const message = messageRef.current.value.trim();
-        if (message.length <= 0) {
-            return;
-        }
+        if (e.key === "Enter" || e.type === "submit") {
+            if (message.length <= 0) {
+                return;
+            }
 
-        const res = await api.post(`/talk/start/${id}`, {
-            message,
-        });
+            const res = await api.post(`/talk/start/${id}`, {
+                message,
+                sendTo: history.location?.state?.state?.item?._id,
+            });
 
-        if (res.data?.success) {
-            socket.emit("new message", { message: res.data.data, id });
+            if (!res.data?.success) {
+                return;
+            }
+            messageRef.current.value = "";
+            socket.emit("new message", {
+                message: res.data.data,
+                id: history.location?.state?.state?.item?._id,
+            });
             setMyMessage((prevState) => {
                 return [...prevState, res.data.data];
             });
         }
-        messageRef.current.value = "";
-        detailMessageContainerRef.current.scrolToTop =
-            detailMessageContainerRef.current.scrollHeight;
     };
 
     useEffect(() => {
         socket.on("recieved message", (data) => {
-            console.log("recieved message", data);
+            // console.log("recieved message", data);
             setMyMessage((prevState) => {
                 return [...prevState, data];
             });
@@ -47,21 +53,29 @@ function DetailTalk() {
 
     useEffect(() => {
         if (id) {
-            api.get(`/talk/get/${id}`).then((res) => {
+            api.get(`/talk/getTalk/${id}`).then((res) => {
                 if (res.data?.success) {
-                    setMyMessage([...res.data.data]);
-                    socket.emit("talk-start", "abc");
+                    // console.log(res.data.data);
+                    setMyMessage([...res.data.data?.messages]);
+                    socket.emit("talk-start", { id });
                 }
             });
         }
     }, [id]);
 
     useEffect(() => {
-        const user = JSON.stringify(localStorage.getItem("chautaroUser"));
-        const tempMe = JSON.parse(user);
-        setMe({ ...tempMe });
+        const user = JSON.parse(localStorage.getItem("chautaroUser"));
+        setMe({ ...user });
         socket.emit("setup", user);
     }, []);
+
+    useEffect(() => {
+        if (detailMessageContainerRef.current) {
+            detailMessageContainerRef.current.scrollTop =
+                detailMessageContainerRef.current.scrollHeight;
+        }
+    }, [myMessage]);
+
     return (
         <AuthorizedHomeBase>
             <div>
@@ -77,7 +91,7 @@ function DetailTalk() {
                         />
                     </div>
                     <div className={classes.detail_talk_name}>
-                        <p>John Doe</p>
+                        <p>{history.location?.state?.state?.item?.name}</p>
                     </div>
                 </header>
 
@@ -87,6 +101,56 @@ function DetailTalk() {
                     ref={detailMessageContainerRef}
                 >
                     <div className={classes.here__message}>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Officiis, odit iste dicta fugiat nihil quis
+                            quam atque omnis distinctio enim.
+                        </p>
+                        <span className={classes.more_info_message}>
+                            -Jan 10, 2021 08:50AM
+                        </span>
+                    </div>
+                    <div className={classes.there__message}>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                            elit. Enim, dolorum ad. Eius dolorem cupiditate
+                            accusantium. Et illo explicabo quae quaerat.
+                        </p>
+                        <span className={classes.more_info_message}>
+                            -Jan 10, 2021 08:50AM
+                        </span>
+                    </div>
+
+                    {myMessage.map((message, _index) => (
+                        <IndvDetailTalkHere
+                            message={message}
+                            me={me}
+                            key={message?._id}
+                        />
+                    ))}
+                </section>
+                <div className={classes.input__message}>
+                    <form onSubmit={handleSubmit}>
+                        <textarea
+                            name="message"
+                            rows="3"
+                            placeholder="Your message..."
+                            ref={messageRef}
+                        ></textarea>
+                        <button>
+                            <i className="fas fa-paper-plane"></i> Send
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </AuthorizedHomeBase>
+    );
+}
+
+export default DetailTalk;
+
+{
+    /* <div className={classes.here__message}>
                         <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing
                             elit. Officiis
@@ -164,60 +228,5 @@ function DetailTalk() {
                         <span className={classes.more_info_message}>
                             -Jan 10, 2021 08:50AM
                         </span>
-                    </div>
-                    <div className={classes.here__message}>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Officiis, odit iste dicta fugiat nihil quis
-                            quam atque omnis distinctio enim.
-                        </p>
-                        <span className={classes.more_info_message}>
-                            -Jan 10, 2021 08:50AM
-                        </span>
-                    </div>
-                    <div className={classes.there__message}>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Enim, dolorum ad. Eius dolorem cupiditate
-                            accusantium. Et illo explicabo quae quaerat.
-                        </p>
-                        <span className={classes.more_info_message}>
-                            -Jan 10, 2021 08:50AM
-                        </span>
-                    </div>
-
-                    {myMessage.map((message, _index) => (
-                        <div
-                            className={
-                                message?.sendBy.toString() !== id
-                                    ? classes.here__message
-                                    : classes.there__message
-                            }
-                            key={message?._id}
-                        >
-                            <p>{message?.message}</p>
-                            <span className={classes.more_info_message}>
-                                -Jan 10, 2021 08:50AM
-                            </span>
-                        </div>
-                    ))}
-                </section>
-                <div className={classes.input__message}>
-                    <form onSubmit={handleSubmit}>
-                        <textarea
-                            name="message"
-                            rows="3"
-                            placeholder="Your message..."
-                            ref={messageRef}
-                        ></textarea>
-                        <button>
-                            <i className="fas fa-paper-plane"></i> Send
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </AuthorizedHomeBase>
-    );
+                    </div> */
 }
-
-export default DetailTalk;

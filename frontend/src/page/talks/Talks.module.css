@@ -1,21 +1,21 @@
-.individual__talk_container{
+.individual__talk_container {
     width: 50%;
     margin: auto;
     padding: 1rem;
-    background-color:darkblue;
+    background-color: darkblue;
     border: 0.1rem solid #d0d0d0;
     border-radius: 1rem;
 }
-.header__talks h5{
+.header__talks h5 {
     font-size: 2.5rem;
     width: 17.5rem;
     color: white;
     padding: 0rem 0.5rem;
 }
-.description__home{
+.description__home {
     width: 100%;
 }
-.individual__talk{
+.individual__talk {
     margin: 3rem 0;
     display: grid;
     grid-template-columns: 0.2fr 0.9fr;
@@ -25,44 +25,45 @@
     border-radius: 1rem;
     cursor: pointer;
 }
-.img_individual_talk{
+
+.img_individual_talk {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.img_individual_talk img{
+.img_individual_talk img {
     height: 5rem;
     width: 5rem;
     border-radius: 50%;
 }
-.list_talk_name{
+.list_talk_name {
     font-size: 2rem;
     font-weight: bold;
     color: black;
 }
-.description_individual_talk{
+.description_individual_talk {
     padding-top: 1rem;
 }
-.last_message_recieved{
+.last_message_recieved {
     display: grid;
     grid-template-columns: 0.1fr 0.9fr;
     font-size: 1.7rem;
     color: rgb(44, 44, 44);
     column-gap: 0.5rem;
 }
-.sent_or_recieve_message p{
+.sent_or_recieve_message p {
     -webkit-hyphens: auto;
     hyphens: auto;
     -ms-hyphens: auto;
 }
 
 @media screen and (max-width: 708px) {
-    .individual__talk_container{
+    .individual__talk_container {
         width: 90%;
     }
 }
 @media screen and (max-width: 420px) {
-    .individual__talk_container{
+    .individual__talk_container {
         width: 100%;
     }
 }

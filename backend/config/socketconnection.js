@@ -14,15 +14,20 @@ socketIO.on("connection", (socket) => {
         // console.log(data);
         socket.join(data?._id);
         socket.emit("user connected", data?._id);
+        console.log("user connected", data?._id);
     });
     socket.on("talk-start", (data) => {
         // console.log(data);
-        socket.join(data);
+        socket.join(data?.id);
     });
     socket.on("new message", (data) => {
-        console.log(data.id);
-
-        socket.broadcast.to(data.id).emit("recieved message", data.message);
+        // console.log(data.message);
+        // console.log(data.id);
+        socket.in(data.id).emit("recieved message", data.message);
+    });
+    socket.off("setup", (data) => {
+        console.log("user disconnected");
+        socket.leave(data?._id);
     });
 });
 

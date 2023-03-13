@@ -18,11 +18,6 @@ const auth = require("./middleware/auth");
 // databse connection
 connnectDatabase();
 
-// connect models
-require("./model/user");
-require("./model/chautaro-group-talk");
-require("./model/chautaro-talk-message");
-
 // router
 app.use("/user", authRouter);
 app.use("/chautaro-group-talk", chautaroGroupTalkRouter);

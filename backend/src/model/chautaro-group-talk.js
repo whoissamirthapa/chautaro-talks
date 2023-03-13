@@ -17,6 +17,12 @@ const chautaroGroupTalkSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "Auth",
         },
+        messages: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "ChautaroGroupMessage",
+            },
+        ],
     },
     {
         timestamps: true,
