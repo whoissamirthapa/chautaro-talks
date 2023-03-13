@@ -3,6 +3,7 @@ exports.resPonse = (res, success, data, status = 200, customError, error) => {
         return res.status(status).json({
             success: success,
             data,
+            message: customError,
         });
     }
     res.status(status).json({

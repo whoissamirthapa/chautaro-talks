@@ -10,17 +10,20 @@ const chautaroGroupTalkSchema = new mongoose.Schema(
             type: String,
             require: [true, "Description is Required"],
         },
-        members: {
-            type: Array,
-        },
+        members: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+            },
+        ],
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Auth",
+            ref: "User",
         },
         messages: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "ChautaroGroupMessage",
+                ref: "ChautaroTalk",
             },
         ],
     },

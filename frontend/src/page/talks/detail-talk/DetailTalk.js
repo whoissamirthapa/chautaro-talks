@@ -34,7 +34,7 @@ function DetailTalk() {
             messageRef.current.value = "";
             socket.emit("new message", {
                 message: res.data.data,
-                id: history.location?.state?.state?.item?._id,
+                id: id,
             });
             setMyMessage((prevState) => {
                 return [...prevState, res.data.data];
@@ -49,7 +49,9 @@ function DetailTalk() {
                 return [...prevState, data];
             });
         });
-    });
+    }, []);
+
+    console.log(myMessage);
 
     useEffect(() => {
         if (id) {
@@ -79,7 +81,13 @@ function DetailTalk() {
     return (
         <AuthorizedHomeBase>
             <div>
-                <button onClick={() => history.goBack()}>GO back</button>
+                <button
+                    onClick={() => history.goBack()}
+                    className={classes.back_btn}
+                >
+                    <span>&crarr;</span>
+                    Back
+                </button>
             </div>
 
             <div className={classes.detail_talk_container}>

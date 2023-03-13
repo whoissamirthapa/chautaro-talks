@@ -5,14 +5,7 @@ import classes from "./Talks.module.css";
 import AuthorizedHomeBase from "../../components/AuthorizedHomeBase/AuthorizedHomeBase";
 import IndvTalkHere from "./indvTalk";
 
-const array = [
-    {
-        id: 1,
-    },
-    {
-        id: 2,
-    },
-];
+const array = [];
 function Talks() {
     const [allUsers, setAllUsers] = useState([]);
 
@@ -47,7 +40,7 @@ function Talks() {
                             <IndvTalkHere item={item} key={item?._id} />
                         )
                 )}
-                {array.map((item) => (
+                {array?.map((item) => (
                     <Link to={`/detail-talk/${item.id}`} key={item.id}>
                         <section className={classes.description__home}>
                             <article className={classes.individual__talk}>

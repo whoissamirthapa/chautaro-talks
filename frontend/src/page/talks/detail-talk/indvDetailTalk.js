@@ -101,7 +101,9 @@ const IndvDetailTalkHere = ({ message, me }) => {
         <>
             <div
                 className={
-                    message?.sendBy?.toString() !== me?._id
+                    (message?.sendBy?.toString()
+                        ? message?.sendBy.toString()
+                        : message?.user.toString()) !== me?._id
                         ? classes.there__message
                         : classes.here__message
                 }
@@ -111,23 +113,22 @@ const IndvDetailTalkHere = ({ message, me }) => {
                     {
                         <span>
                             {date?.year > 0
-                                ? `${date?.year} y`
+                                ? `${date?.year} y ago`
                                 : date?.month > 0 && date?.month < 12
-                                ? `${date?.month} m`
+                                ? `${date?.month} m ago`
                                 : date?.week > 0 && date?.week < 4
-                                ? `${date?.week} w`
+                                ? `${date?.week} w ago`
                                 : date?.day > 0 && date?.day < 30
-                                ? `${date?.day} d`
+                                ? `${date?.day} d ago`
                                 : date?.hour > 0 && date?.hour < 24
-                                ? `${date?.hour} h`
+                                ? `${date?.hour} h ago`
                                 : date?.minute > 0 && date?.minute < 60
-                                ? `${date?.minute} m`
+                                ? `${date?.minute} m ago`
                                 : date?.second > 0 && date?.second < 60
-                                ? `${date?.second} s`
+                                ? `${date?.second} s ago`
                                 : "now"}
                         </span>
                     }{" "}
-                    ago
                     {/* -Jan 10, 2021 08:50AM */}
                 </span>
             </div>
