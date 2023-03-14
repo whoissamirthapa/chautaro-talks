@@ -5,6 +5,7 @@ import classes from "./DetailTalk.module.css";
 import socket from "../../../config/socketconnection";
 import api from "../../../config.axios";
 import MessageContainer from "../../../components/utils";
+import ImgAvater from "../../../assets/img_avatar.png";
 
 function DetailTalk() {
     const [me, setMe] = useState({});
@@ -91,10 +92,7 @@ function DetailTalk() {
             <div className={classes.detail_talk_container}>
                 <header className={classes.sent_name_detail_talk}>
                     <div className={classes.detail_talk_img}>
-                        <img
-                            src="https://www.w3schools.com/howto/img_avatar.png"
-                            alt={`user${id}`}
-                        />
+                        <img src={`${ImgAvater}`} alt={`user${id}`} />
                     </div>
                     <div className={classes.detail_talk_name}>
                         <p>{history.location?.state?.state?.item?.name}</p>
