@@ -1,22 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import api from "../../../config.axios";
-import io from "socket.io-client";
-
+import socket from "../../../config/socketconnection";
 import classes from "./MeetRoom.module.css";
 import imga from "../../../assets/teemavatar.png";
 import AuthorizedHomeBase from "../../../components/AuthorizedHomeBase/AuthorizedHomeBase";
-import IndvDetailTalkHere from "../../talks/detail-talk/indvDetailTalk";
+import MessageContainer from "../../../components/utils";
 
 function MeetRoom() {
+    const history = useHistory();
+    let { roomId } = useParams();
+    const messageRef = useRef();
+
     const [myMessage, setMyMessage] = useState([]);
     const [infoGroup, setInfoGroup] = useState({});
     const [me, setMe] = useState({});
-    const messageRef = useRef();
-    const groupTalkRef = useRef();
-    let { roomId } = useParams();
-
-    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,15 +26,18 @@ function MeetRoom() {
             message,
         }).then((res) => {
             if (res.data.success) {
-                console.log(res.data.data);
+                socket.emit("new message", {
+                    message: res.data.data,
+                    id: roomId,
+                });
                 setMyMessage((prev) => {
                     return [...prev, res.data.data];
                 });
+                messageRef.current.value = "";
             } else {
                 console.log(res.data);
             }
         });
-        messageRef.current.value = "";
     };
 
     useEffect(() => {
@@ -66,6 +67,7 @@ function MeetRoom() {
                                 name: res.data.data.name,
                             };
                         });
+                        socket.emit("talk-start", { id: roomId });
                     } else {
                         console.log(res.data);
                     }
@@ -78,14 +80,19 @@ function MeetRoom() {
     }, [roomId]);
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("chautaroUser"));
-        setMe({ ...user });
-        // socket.emit("setup", user);
+        socket.on("recieved message", (data) => {
+            // console.log("recieved message", data);
+            setMyMessage((prevState) => {
+                return [...prevState, data];
+            });
+        });
     }, []);
 
     useEffect(() => {
-        groupTalkRef.current.scrollTop = groupTalkRef.current.scrollHeight;
-    }, [myMessage]);
+        const user = JSON.parse(localStorage.getItem("chautaroUser"));
+        setMe({ ...user });
+        socket.emit("setup", user);
+    }, []);
 
     return (
         <AuthorizedHomeBase>
@@ -109,36 +116,8 @@ function MeetRoom() {
                 </header>
 
                 {/*----------------- Message container ------------------*/}
-                <section className={classes.detail__message} ref={groupTalkRef}>
-                    <div className={classes.here__message}>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Officiis, odit iste dicta fugiat nihil quis
-                            quam atque omnis distinctio enim.
-                        </p>
-                        <span className={classes.more_info_message}>
-                            -Jan 10, 2021 08:50AM
-                        </span>
-                    </div>
-                    <div className={classes.there__message}>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Enim, dolorum ad. Eius dolorem cupiditate
-                            accusantium. Et illo explicabo quae quaerat.
-                        </p>
-                        <span className={classes.more_info_message}>
-                            -Jan 10, 2021 08:50AM
-                        </span>
-                    </div>
+                <MessageContainer myMessage={myMessage} me={me} room={true} />
 
-                    {myMessage?.map((message, index) => (
-                        <IndvDetailTalkHere
-                            message={message}
-                            me={me}
-                            key={message?._id}
-                        />
-                    ))}
-                </section>
                 <div className={classes.input__message}>
                     <form onSubmit={handleSubmit}>
                         <textarea

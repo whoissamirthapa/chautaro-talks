@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import AuthorizedHomeBase from "../../../components/AuthorizedHomeBase/AuthorizedHomeBase";
-
 import classes from "./DetailTalk.module.css";
 import socket from "../../../config/socketconnection";
 import api from "../../../config.axios";
-import IndvDetailTalkHere from "./indvDetailTalk";
+import MessageContainer from "../../../components/utils";
+
 function DetailTalk() {
     const [me, setMe] = useState({});
     const [myMessage, setMyMessage] = useState([]);
@@ -50,8 +50,6 @@ function DetailTalk() {
             });
         });
     }, []);
-
-    console.log(myMessage);
 
     useEffect(() => {
         if (id) {
@@ -104,39 +102,7 @@ function DetailTalk() {
                 </header>
 
                 {/*----------------- Message container ------------------*/}
-                <section
-                    className={classes.detail__message}
-                    ref={detailMessageContainerRef}
-                >
-                    <div className={classes.here__message}>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Officiis, odit iste dicta fugiat nihil quis
-                            quam atque omnis distinctio enim.
-                        </p>
-                        <span className={classes.more_info_message}>
-                            -Jan 10, 2021 08:50AM
-                        </span>
-                    </div>
-                    <div className={classes.there__message}>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Enim, dolorum ad. Eius dolorem cupiditate
-                            accusantium. Et illo explicabo quae quaerat.
-                        </p>
-                        <span className={classes.more_info_message}>
-                            -Jan 10, 2021 08:50AM
-                        </span>
-                    </div>
-
-                    {myMessage.map((message, _index) => (
-                        <IndvDetailTalkHere
-                            message={message}
-                            me={me}
-                            key={message?._id}
-                        />
-                    ))}
-                </section>
+                <MessageContainer myMessage={myMessage} me={me} room={false} />
                 <div className={classes.input__message}>
                     <form onSubmit={handleSubmit}>
                         <textarea

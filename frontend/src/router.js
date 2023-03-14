@@ -1,21 +1,17 @@
-import React from 'react';
-import { 
-    Switch, 
-    Route, 
-    Redirect
-} from 'react-router';
+import React from "react";
+import { Switch, Route, Redirect } from "react-router";
 
-import Login from './page/auth/login/Login';
-import Error404 from './page/Error404/Error404';
-import Home from './page/home/Home';
-import HowItWork from './page/how-work/HowItWork';
-import CreateChautaroMeet from './page/Meet/create-meet/CreateMeet';
-import JoinMeet from './page/Meet/join-meet/JoinMeet';
-import ChautaroMeet from './page/Meet/Meet';
-import MeetRoom from './page/Meet/meet-room/MeetRoom';
-import Pricing from './page/pricing/Pricing';
-import DetailTalk from './page/talks/detail-talk/DetailTalk';
-import Talks from './page/talks/Talks';
+import Login from "./page/auth/login/Login";
+import Error404 from "./page/Error404/Error404";
+import Home from "./page/home/Home";
+import HowItWork from "./page/how-work/HowItWork";
+import CreateChautaroMeet from "./page/Meet/create-meet/CreateMeet";
+import JoinMeet from "./page/Meet/join-meet/JoinMeet";
+import ChautaroMeet from "./page/Meet/Meet";
+import MeetRoom from "./page/Meet/meet-room/MeetRoom";
+import About from "./page/pricing/Pricing";
+import DetailTalk from "./page/talks/detail-talk/DetailTalk";
+import Talks from "./page/talks/Talks";
 
 function Router() {
     const token = localStorage.getItem("cUser_token");
@@ -38,8 +34,8 @@ function Router() {
                 <Route path="/detail-talk/:id" exact>
                     <DetailTalk />
                 </Route>
-                <Route path="/pricing" exact>
-                    <Pricing />
+                <Route path="/about" exact>
+                    <About />
                 </Route>
                 <Route path="/chautaro-meet" exact>
                     <ChautaroMeet />
@@ -59,10 +55,9 @@ function Router() {
                 <Route path="*">
                     <Error404 />
                 </Route>
-            
             </Switch>
         </>
-    )
+    );
 }
 
-export default Router
+export default Router;

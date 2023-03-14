@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import classes from "./DetailTalk.module.css";
 
-const IndvDetailTalkHere = ({ message, me }) => {
+const IndvDetailTalkHere = ({ message, me, room }) => {
     const [date, setDate] = React.useState({
         year: 0,
         month: 0,
@@ -103,7 +103,7 @@ const IndvDetailTalkHere = ({ message, me }) => {
                 className={
                     (message?.sendBy?.toString()
                         ? message?.sendBy.toString()
-                        : message?.user.toString()) !== me?._id
+                        : message?.user?._id?.toString()) !== me?._id
                         ? classes.there__message
                         : classes.here__message
                 }
@@ -112,6 +112,10 @@ const IndvDetailTalkHere = ({ message, me }) => {
                 <span className={classes.more_info_message}>
                     {
                         <span>
+                            {message?.user?._id?.toString() &&
+                            message?.user?._id?.toString() !== me?._id ? (
+                                <> {message?.user?.name} &sdot; </>
+                            ) : null}
                             {date?.year > 0
                                 ? `${date?.year} y ago`
                                 : date?.month > 0 && date?.month < 12
@@ -129,11 +133,10 @@ const IndvDetailTalkHere = ({ message, me }) => {
                                 : "now"}
                         </span>
                     }{" "}
-                    {/* -Jan 10, 2021 08:50AM */}
                 </span>
             </div>
         </>
     );
 };
 
-export default IndvDetailTalkHere;
+export default memo(IndvDetailTalkHere);

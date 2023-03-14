@@ -26,7 +26,7 @@ socketIO.on("connection", (socket) => {
         socket.to(data?.id).emit("recieved message", data.message);
     });
     socket.off("setup", (data) => {
-        console.log("user disconnected");
+        console.log("user disconnected", data?._id);
         socket.leave(data?._id);
     });
     socket.on("disconnect", () => {

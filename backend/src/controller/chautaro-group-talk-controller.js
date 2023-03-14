@@ -61,7 +61,15 @@ exports.getChautaroGroupTalkMessage = async (req, res) => {
 
         const groupTalkMemberExist = await ChautaroGroupTalkModel.findOne({
             _id: req.params.id,
-        }).populate(["createdBy", "members", "messages"]);
+        })
+            .populate(["createdBy", "members", "messages"])
+            .populate({
+                path: "messages",
+                populate: {
+                    path: "user",
+                    model: "User",
+                },
+            });
 
         var memeberExist = false;
         groupTalkMemberExist.members.forEach((member) => {
@@ -83,7 +91,15 @@ exports.getChautaroGroupTalkMessage = async (req, res) => {
             { _id: req.params.id },
             { $push: { members: payload?.id } },
             { new: true, useFindAndModify: false }
-        ).populate(["createdBy", "members", "messages"]);
+        )
+            .populate(["createdBy", "members", "messages"])
+            .populate({
+                path: "messages",
+                populate: {
+                    path: "user",
+                    model: "User",
+                },
+            });
         if (!groupTalkMessage) throw "Group Talk Message is not created yet";
         resPonse(
             res,
@@ -108,7 +124,9 @@ exports.createGroupMsg = async (req, res) => {
             chautaroGroupTalk: req.params?.id,
             user: payload?.id,
             message,
-        }).save();
+        })
+            .save()
+            .populate("user");
 
         if (!groupTalkMessage) throw "Group Talk Message is not created yet";
         resPonse(

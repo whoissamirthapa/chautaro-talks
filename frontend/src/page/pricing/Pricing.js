@@ -1,12 +1,12 @@
-import React from 'react'
-import HomeBase from '../../components/HomeBase/HomeBase'
+import React from "react";
+import HomeBase from "../../components/HomeBase/HomeBase";
 
-function Pricing() {
+function About() {
     return (
         <HomeBase>
-            <header>Hello from Pricing Section</header>
+            <header>Hello from About Section</header>
         </HomeBase>
-    )
+    );
 }
 
-export default Pricing
+export default About;
