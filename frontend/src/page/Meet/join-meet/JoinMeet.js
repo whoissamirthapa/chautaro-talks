@@ -4,24 +4,6 @@ import api from "../../../config.axios";
 import classes from "./JoinMeet.module.css";
 import AuthorizedHomeBase from "../../../components/AuthorizedHomeBase/AuthorizedHomeBase";
 
-const array = [
-    {
-        id: 1,
-        name: "First Group",
-    },
-    {
-        id: 2,
-        name: "Second Group",
-    },
-    {
-        id: 3,
-        name: "Third Group",
-    },
-    {
-        id: 4,
-        name: "Fourth Group",
-    },
-];
 function JoinMeet() {
     const [room, setRoom] = useState([]);
     useEffect(() => {
@@ -66,3 +48,14 @@ function JoinMeet() {
 }
 
 export default JoinMeet;
+
+// const array = [
+//     {
+//         id: 1,
+//         name: "First Group",
+//     },
+//     {
+//         id: 2,
+//         name: "Second Group",
+//     }
+// ];

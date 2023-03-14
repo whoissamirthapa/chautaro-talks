@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import api from "../../config.axios";
 import classes from "./Talks.module.css";
 import AuthorizedHomeBase from "../../components/AuthorizedHomeBase/AuthorizedHomeBase";

@@ -1,6 +1,5 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router";
-
 import Login from "./page/auth/login/Login";
 import Error404 from "./page/Error404/Error404";
 import Home from "./page/home/Home";
@@ -9,12 +8,12 @@ import CreateChautaroMeet from "./page/Meet/create-meet/CreateMeet";
 import JoinMeet from "./page/Meet/join-meet/JoinMeet";
 import ChautaroMeet from "./page/Meet/Meet";
 import MeetRoom from "./page/Meet/meet-room/MeetRoom";
-import About from "./page/pricing/Pricing";
+import About from "./page/About";
 import DetailTalk from "./page/talks/detail-talk/DetailTalk";
 import Talks from "./page/talks/Talks";
 
 function Router() {
-    const token = localStorage.getItem("cUser_token");
+    // const token = localStorage.getItem("cUser_token");
 
     return (
         <>

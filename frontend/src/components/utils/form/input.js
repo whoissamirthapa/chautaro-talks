@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import classes from "../../../page/Meet/create-meet/CreateMeet.module.css";
 
 const Input = ({ type, label, name, value, placeholder, handleChange }) => {
