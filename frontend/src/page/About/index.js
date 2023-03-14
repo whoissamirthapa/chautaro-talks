@@ -1,13 +1,15 @@
 import React from "react";
 import HomeBase from "../../components/HomeBase/HomeBase";
-import classes from "./Pricing.module.css";
+import classes from "./About.module.css";
 import whatIsImg from "../../assets/chat.svg";
 import whatIsImg_group from "../../assets/group_chat.svg";
 
 function About() {
     return (
         <HomeBase>
-            <header className={classes.header_about}>About</header>
+            <header className={classes.header_about}>
+                <span className={classes.heading___}>About</span>
+            </header>
             <section className={classes.container_about}>
                 <article className={classes.indv_section_about}>
                     <section className={classes.left_}>

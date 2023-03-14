@@ -4,7 +4,7 @@ import api from "../../config.axios";
 import classes from "./Talks.module.css";
 import AuthorizedHomeBase from "../../components/AuthorizedHomeBase/AuthorizedHomeBase";
 import IndvTalkHere from "./indvTalk";
-
+import ImgAvatar from "../../assets/img_avatar.png";
 const array = [];
 function Talks() {
     const [allUsers, setAllUsers] = useState([]);
@@ -46,7 +46,7 @@ function Talks() {
                             <article className={classes.individual__talk}>
                                 <div className={classes.img_individual_talk}>
                                     <img
-                                        src="https://www.w3schools.com/howto/img_avatar.png"
+                                        src={`${ImgAvatar}`}
                                         alt={`user+${item.id}`}
                                     />
                                 </div>
