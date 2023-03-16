@@ -15,7 +15,7 @@ app.use(
     cors({
         origin:
             process.env.NODE_ENV === "production"
-                ? "*"
+                ? "http://localhost:3000"
                 : "http://localhost:3000",
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type", "Authorization"],
