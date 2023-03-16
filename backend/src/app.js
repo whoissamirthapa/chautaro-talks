@@ -15,7 +15,7 @@ app.use(
     cors({
         origin:
             process.env.NODE_ENV === "production"
-                ? "https://chautarotalk.netlify.app/"
+                ? "https://chautarotalk.netlify.app"
                 : "http://localhost:3000",
         // origin: "*",
         methods: ["GET", "POST", "PUT", "DELETE"],
