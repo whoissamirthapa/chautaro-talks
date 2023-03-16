@@ -5,7 +5,7 @@ const socketIO = require("socket.io")(http, {
     pingTimeout: 60000,
     cors: {
         origin: "*",
-        methods: ["GET", "POST"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
     },
 });
 

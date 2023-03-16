@@ -13,12 +13,12 @@ app.use(express.urlencoded({ extended: true }));
 // setting up cross origin
 app.use(
     cors({
-        origin:
-            process.env.NODE_ENV === "production"
-                ? "http://localhost:3000"
-                : "http://localhost:3000",
+        // origin:
+        //     process.env.NODE_ENV === "production"
+        //         ? "http://localhost:3000"
+        //         : "http://localhost:3000",
+        origin: "*",
         methods: ["GET", "POST", "PUT", "DELETE"],
-        allowedHeaders: ["Content-Type", "Authorization"],
     })
 );
 
@@ -29,6 +29,9 @@ const auth = require("./middleware/auth");
 connnectDatabase();
 
 // router
+app.use("/test", (req, res) => {
+    res.send("hello world");
+});
 app.use("/user", authRouter);
 app.use("/chautaro-group-talk", chautaroGroupTalkRouter);
 app.use("/talk", auth, talkRouter);
