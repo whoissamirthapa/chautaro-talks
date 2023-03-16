@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
+import api from "../../../config.axios";
 import classes from "./Signup.module.css";
 
 function Signup() {
@@ -72,8 +73,7 @@ function Signup() {
         const data = { name, email, genderC, address, password, cpassword };
 
         setLoadingRegister(true);
-        axios
-            .post("http://localhost:4000/user/sign-up", data)
+        api.post("/user/sign-up", data)
             .then((response) => {
                 alert(response.data.message);
             })

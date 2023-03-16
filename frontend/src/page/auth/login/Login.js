@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
+import api from "../../../config.axios";
 import { useHistory } from "react-router";
-
 import classes from "./Login.module.css";
 import HomeBase from "../../../components/HomeBase/HomeBase";
 import Signup from "../register/Signup";
@@ -35,8 +35,7 @@ function Login() {
         const loginData = { email, password };
 
         setLoadingLogin(true);
-        axios
-            .post("http://localhost:4000/user/sign-in", loginData)
+        api.post("/user/sign-in", loginData)
             .then((res) => {
                 localStorage.setItem("cUser_token", res.data.token);
 
