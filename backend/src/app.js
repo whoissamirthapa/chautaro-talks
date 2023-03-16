@@ -13,11 +13,11 @@ app.use(express.urlencoded({ extended: true }));
 // setting up cross origin
 app.use(
     cors({
-        // origin:
-        //     process.env.NODE_ENV === "production"
-        //         ? "http://localhost:3000"
-        //         : "http://localhost:3000",
-        origin: "*",
+        origin:
+            process.env.NODE_ENV === "production"
+                ? "https://chautarotalk.netlify.app/"
+                : "http://localhost:3000",
+        // origin: "*",
         methods: ["GET", "POST", "PUT", "DELETE"],
     })
 );
