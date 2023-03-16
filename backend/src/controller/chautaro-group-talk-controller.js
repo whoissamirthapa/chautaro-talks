@@ -124,9 +124,7 @@ exports.createGroupMsg = async (req, res) => {
             chautaroGroupTalk: req.params?.id,
             user: payload?.id,
             message,
-        })
-            .save()
-            .populate("user");
+        }).save();
 
         if (!groupTalkMessage) throw "Group Talk Message is not created yet";
         resPonse(
