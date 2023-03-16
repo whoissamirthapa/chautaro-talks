@@ -10,7 +10,7 @@ import ImgAvater from "../../../assets/img_avatar.png";
 function DetailTalk() {
     const [me, setMe] = useState({});
     const [myMessage, setMyMessage] = useState([]);
-
+    const [loadingSend, setLoadingSend] = useState(false);
     const messageRef = useRef(null);
     const detailMessageContainerRef = useRef(null);
     let { id } = useParams();
@@ -23,7 +23,7 @@ function DetailTalk() {
             if (message.length <= 0) {
                 return;
             }
-
+            setLoadingSend(true);
             const res = await api.post(`/talk/start/${id}`, {
                 message,
                 sendTo: history.location?.state?.state?.item?._id,
@@ -40,6 +40,7 @@ function DetailTalk() {
             setMyMessage((prevState) => {
                 return [...prevState, res.data.data];
             });
+            setLoadingSend(false);
         }
     };
 
@@ -109,8 +110,9 @@ function DetailTalk() {
                             placeholder="Your message..."
                             ref={messageRef}
                         ></textarea>
-                        <button>
-                            <i className="fas fa-paper-plane"></i> Send
+                        <button disabled={loadingSend}>
+                            <i className="fas fa-paper-plane"></i>{" "}
+                            {loadingSend ? "Send" : "Send"}
                         </button>
                     </form>
                 </div>

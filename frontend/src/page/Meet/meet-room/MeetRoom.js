@@ -15,6 +15,7 @@ function MeetRoom() {
     const [myMessage, setMyMessage] = useState([]);
     const [infoGroup, setInfoGroup] = useState({});
     const [me, setMe] = useState({});
+    const [loadingSend, setLoadingSend] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -22,6 +23,7 @@ function MeetRoom() {
         if (message.length <= 0) {
             return;
         }
+        setLoadingSend(true);
         api.post(`/chautaro-group-talk/create/msg/${roomId}`, {
             message,
         }).then((res) => {
@@ -38,6 +40,7 @@ function MeetRoom() {
                 console.log(res.data);
             }
         });
+        setLoadingSend(false);
     };
 
     useEffect(() => {
@@ -126,8 +129,9 @@ function MeetRoom() {
                             placeholder="Your message..."
                             ref={messageRef}
                         ></textarea>
-                        <button>
-                            <i className="fas fa-paper-plane"></i> Send
+                        <button disabled={loadingSend}>
+                            <i className="fas fa-paper-plane"></i>{" "}
+                            {loadingSend ? "Send" : "Send"}
                         </button>
                     </form>
                 </div>

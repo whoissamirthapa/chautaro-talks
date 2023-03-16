@@ -12,7 +12,7 @@ function CreateChautaroMeet() {
         name: "",
         description: "",
     });
-
+    const [loadingCreate, setLoadingCreate] = useState(false);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setCreateData((prev) => {
@@ -46,6 +46,7 @@ function CreateChautaroMeet() {
             return;
         }
 
+        setLoadingCreate(true);
         const res = await api.post("/chautaro-group-talk/create", createData);
         if (res.data.success) {
             // console.log(res.data);
@@ -55,6 +56,7 @@ function CreateChautaroMeet() {
             // console.log(res.data);
             alert(res.data.message);
         }
+        setLoadingCreate(false);
     };
 
     return (
@@ -82,7 +84,9 @@ function CreateChautaroMeet() {
                             placeholder="Your group description"
                             handleChange={handleChange}
                         />
-                        <button>Create</button>
+                        <button disabled={loadingCreate}>
+                            {loadingCreate ? "Creating..." : "Create"}
+                        </button>
                     </form>
                     <span className={classes.join_other_group}>
                         Want to join other Group?

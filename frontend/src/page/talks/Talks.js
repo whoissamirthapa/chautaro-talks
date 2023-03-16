@@ -8,8 +8,9 @@ import ImgAvatar from "../../assets/img_avatar.png";
 const array = [];
 function Talks() {
     const [allUsers, setAllUsers] = useState([]);
-
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
+        setLoading(true);
         api.get("/user/all").then((res) => {
             if (res.data?.success) {
                 const temp = res?.data?.data;
@@ -25,21 +26,25 @@ function Talks() {
                 );
             }
         });
+        setLoading(false);
     }, []);
 
+    console.log(loading);
     return (
         <AuthorizedHomeBase>
             <div className={classes.individual__talk_container}>
                 <header className={classes.header__talks}>
                     <h5>People To talk</h5>
                 </header>
-                {allUsers?.map(
-                    (item) =>
-                        JSON.parse(localStorage?.getItem("chautaroUser"))
-                            ?._id !== item?._id && (
-                            <IndvTalkHere item={item} key={item?._id} />
-                        )
-                )}
+                {loading && <div>Please wait...</div>}
+                {!loading &&
+                    allUsers?.map(
+                        (item) =>
+                            JSON.parse(localStorage?.getItem("chautaroUser"))
+                                ?._id !== item?._id && (
+                                <IndvTalkHere item={item} key={item?._id} />
+                            )
+                    )}
                 {array?.map((item) => (
                     <Link to={`/detail-talk/${item.id}`} key={item.id}>
                         <section className={classes.description__home}>
